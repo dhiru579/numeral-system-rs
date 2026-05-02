@@ -39,6 +39,8 @@ impl NumberWithBase {
         base: u8,
         value: &String,
     ) -> Result<(u8, String), String> {
+        // TODO : check if same new base as old then do nothing and return
+        // TODO : check if base is not base-10 then convert to base-10
         check_if_base_allowed(&base)?;
 
         let inp: u32 = parse_string_to_int(value)?;
