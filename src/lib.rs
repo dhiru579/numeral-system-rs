@@ -35,3 +35,10 @@ impl NumberWithBase {
         (self.get_base(), self.get_value())
     }
 }
+
+fn check_if_base_allowed(n: &u8) -> Result<(), String> {
+    if !SUPPORTED_BASES.contains(n) {
+        return Err("provided base is not supported".to_string());
+    };
+    Ok(())
+}
