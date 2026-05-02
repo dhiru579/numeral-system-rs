@@ -77,6 +77,15 @@ impl NumberWithBase {
         self.value = out_str;
         Ok(())
     }
+
+    pub fn convert_to_base_n(self: &NumberWithBase, base: u8) -> Result<NumberWithBase, String> {
+        let (base, out_str) = Self::get_base_and_value_post_base_update(base, &self.value)?;
+
+        Ok(NumberWithBase {
+            base,
+            value: out_str,
+        })
+    }
 }
 
 fn parse_string_to_int(val: &String) -> Result<u32, String> {
