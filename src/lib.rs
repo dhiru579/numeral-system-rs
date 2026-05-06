@@ -118,10 +118,10 @@ fn get_base10_value(base: &u8, value: &String) -> u32 {
 
     for (ind, chx) in value.chars().rev().enumerate() {
         let digit: u32 = match chx.to_digit(*base as u32) {
-            Some(num) => {num},
-            None => {0_u32},
+            Some(num) => num,
+            None => 0_u32,
         };
-        out_sum += digit * ((*base as u32).pow(ind as u32) );
+        out_sum += digit * ((*base as u32).pow(ind as u32));
     }
     out_sum
 }

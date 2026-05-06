@@ -73,7 +73,6 @@ fn test_base10_data(test_case: (u8, &str, &str)) {
     }
 }
 
-
 #[parameterized(
     test_case={
         (10, "4567", 2, "1000111010111"),
