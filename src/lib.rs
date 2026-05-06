@@ -1,3 +1,5 @@
+use std::char::from_digit;
+
 const SUPPORTED_BASES: [u8; 15] = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 const CHAR_DIGIT_MAP_CHARS: [char; 6] = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -53,18 +55,11 @@ impl NumberWithBase {
         let mut temp: u32 = inp;
         while temp > 1_u32 {
             let digx: u32 = temp % base as u32;
-            let charx: String = if base > 9 {
-                match CHAR_DIGIT_MAP_DIGITS.iter().position(|&x| x == digx as u8) {
-                    Some(x) => match CHAR_DIGIT_MAP_CHARS.get(x) {
-                        Some(y) => y.to_string(),
-                        None => digx.to_string(),
-                    },
-                    None => digx.to_string(),
-                }
-            } else {
-                digx.to_string()
-            };
-            out_str.insert_str(0, &charx);
+            let charx: String = match from_digit(digx, base as u32) {
+                Some(m) => m.to_string(),
+                None => "0".to_string(),
+            }; 
+            out_str.insert_str(0, &charx.to_ascii_uppercase());
             temp /= base as u32;
         }
         if temp == 1_u32 {
