@@ -40,7 +40,11 @@ impl NumberWithBase {
         inp_base: &u8,
         value: &String,
     ) -> Result<(u8, String), String> {
-        // TODO : check if same new base as old then do nothing and return
+        // if input & output base is same return early 
+        if base == *inp_base {
+            return Ok((base, value.clone()));
+        }
+
         check_if_base_allowed(&base)?;
 
         let inp: u32 = get_base10_value(inp_base, value);
