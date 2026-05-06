@@ -59,6 +59,7 @@ fn test_base10_data(test_case: (u8, &str, &str)) {
         (10, "4567", 2, "1000111010111"),
         (12, "1B0", 8, "424"),
         (16, "1ff0", 13, "394C"),
+        (14, "1bc0", 14, "1bc0"),
         (18, "1ff0", 13, "provided base is not supported"),
     }
 )]
