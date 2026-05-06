@@ -24,7 +24,11 @@ use numeral_system_rs::NumberWithBase;
         (16, "15", "F"),
         (16, "1008732", "F645C"),
         (17, "16", "provided base is not supported"),
-        (16, "abc", "Value is not a number"),
+        (16, "abc", "Invalid value for the given base"),
+        (2, "00_", "Invalid value for the given base"),
+        (2, "00A", "Invalid value for the given base"),
+        (2, "00a", "Invalid value for the given base"),
+        (16, "G645C", "Invalid value for the given base"),
     }
 )]
 fn test_base10_data(test_case: (u8, &str, &str)) {
