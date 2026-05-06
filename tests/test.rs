@@ -33,25 +33,6 @@ use numeral_system_rs::NumberWithBase;
 )]
 fn test_base10_data(test_case: (u8, &str, &str)) {
     let (out_base, inp_val, expected) = test_case;
-    let cust_base_number: Result<NumberWithBase, String> =
-        NumberWithBase::from_base10(inp_val.to_string());
-    match cust_base_number {
-        Ok(mut numx) => {
-            match numx.mutate_to_base_n(out_base) {
-                Err(x) => {
-                    assert_eq!(expected, x);
-                }
-                Ok(_) => {
-                    assert_eq!(numx.get_base(), out_base);
-                    assert_eq!(numx.get_value(), expected);
-                }
-            };
-        }
-        Err(my_str) => {
-            assert_eq!(expected.to_string(), my_str);
-        }
-    }
-
     let cust_base_number2: Result<NumberWithBase, String> =
         NumberWithBase::from_base10(inp_val.to_string());
     match cust_base_number2 {
