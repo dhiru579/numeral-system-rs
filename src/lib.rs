@@ -1,6 +1,7 @@
 use std::char::from_digit;
 
-const SUPPORTED_BASES: [u8; 15] = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+const SUPPORTED_BASE_MIN: u8 = 2;
+const SUPPORTED_BASE_MAX: u8 = 32;
 
 #[derive(Debug)]
 pub struct NumberWithBase {
@@ -84,7 +85,7 @@ impl NumberWithBase {
 }
 
 fn check_if_base_allowed(n: &u8) -> Result<(), String> {
-    if !SUPPORTED_BASES.contains(n) {
+    if *n < SUPPORTED_BASE_MIN || *n > SUPPORTED_BASE_MAX {
         return Err("provided base is not supported".to_string());
     };
     Ok(())
