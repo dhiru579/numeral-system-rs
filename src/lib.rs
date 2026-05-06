@@ -2,10 +2,6 @@ use std::char::from_digit;
 
 const SUPPORTED_BASES: [u8; 15] = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-const CHAR_DIGIT_MAP_CHARS: [char; 6] = ['A', 'B', 'C', 'D', 'E', 'F'];
-
-const CHAR_DIGIT_MAP_DIGITS: [u8; 6] = [10, 11, 12, 13, 14, 15];
-
 #[derive(Debug)]
 pub struct NumberWithBase {
     base: u8,
