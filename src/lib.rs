@@ -88,14 +88,6 @@ impl NumberWithBase {
     }
 }
 
-fn parse_string_to_int(val: &String) -> Result<u32, String> {
-    let res: Result<u32, std::num::ParseIntError> = val.parse::<u32>();
-    match res {
-        Ok(val) => Ok(val),
-        Err(_) => Err("Value is not a number".to_string()),
-    }
-}
-
 fn check_if_base_allowed(n: &u8) -> Result<(), String> {
     if !SUPPORTED_BASES.contains(n) {
         return Err("provided base is not supported".to_string());
