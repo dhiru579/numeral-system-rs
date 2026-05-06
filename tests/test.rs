@@ -72,3 +72,33 @@ fn test_base10_data(test_case: (u8, &str, &str)) {
         }
     }
 }
+
+
+#[parameterized(
+    test_case={
+        (10, "4567", 2, "1000111010111"),
+        (12, "1B0", 8, "424"),
+        (16, "1ff0", 13, "394C"),
+    }
+)]
+fn test_conversion(test_case: (u8, &str, u8, &str)) {
+    let (inp_base, inp_val, out_base, expected) = test_case;
+    let cust_base_number: Result<NumberWithBase, String> =
+        NumberWithBase::from(inp_base, inp_val.to_string());
+    match cust_base_number {
+        Ok(mut numx) => {
+            match numx.mutate_to_base_n(out_base) {
+                Err(x) => {
+                    assert_eq!(expected, x);
+                }
+                Ok(_) => {
+                    assert_eq!(numx.get_base(), out_base);
+                    assert_eq!(numx.get_value(), expected);
+                }
+            };
+        }
+        Err(my_str) => {
+            assert_eq!(expected.to_string(), my_str);
+        }
+    }
+}
