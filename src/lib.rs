@@ -39,13 +39,13 @@ impl NumberWithBase {
 
     fn get_base_and_value_post_base_update(
         base: u8,
+        inp_base: &u8,
         value: &String,
     ) -> Result<(u8, String), String> {
         // TODO : check if same new base as old then do nothing and return
-        // TODO : check if base is not base-10 then convert to base-10
         check_if_base_allowed(&base)?;
 
-        let inp: u32 = parse_string_to_int(value)?;
+        let inp: u32 = get_base10_value(inp_base, value);
 
         let mut out_str: String = String::new();
         let mut temp: u32 = inp;
@@ -73,7 +73,7 @@ impl NumberWithBase {
     }
 
     pub fn mutate_to_base_n(self: &mut NumberWithBase, base: u8) -> Result<(), String> {
-        let (base, out_str) = Self::get_base_and_value_post_base_update(base, &self.value)?;
+        let (base, out_str) = Self::get_base_and_value_post_base_update(base, &self.base, &self.value)?;
 
         self.base = base;
         self.value = out_str;
@@ -81,7 +81,7 @@ impl NumberWithBase {
     }
 
     pub fn convert_to_base_n(self: &NumberWithBase, base: u8) -> Result<NumberWithBase, String> {
-        let (base, out_str) = Self::get_base_and_value_post_base_update(base, &self.value)?;
+        let (base, out_str) = Self::get_base_and_value_post_base_update(base, &self.base, &self.value)?;
 
         Ok(NumberWithBase {
             base,
