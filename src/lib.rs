@@ -39,9 +39,9 @@ impl NumberWithBase {
         inp_base: &u8,
         value: &String,
     ) -> Result<(u8, String), String> {
-        // if input & output base is same return early 
+        // if input & output base is same return early
         if base == *inp_base {
-            return Ok((base, value.clone()));
+            return Ok((base, value.clone().to_ascii_uppercase()));
         }
 
         check_if_base_allowed(&base)?;
@@ -55,7 +55,7 @@ impl NumberWithBase {
             let charx: String = match from_digit(digx, base as u32) {
                 Some(m) => m.to_string(),
                 None => "0".to_string(),
-            }; 
+            };
             out_str.insert_str(0, &charx.to_ascii_uppercase());
             temp /= base as u32;
         }
