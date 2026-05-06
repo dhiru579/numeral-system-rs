@@ -99,15 +99,8 @@ fn check_if_base_allowed(n: &u8) -> Result<(), String> {
 
 fn check_value_valid_for_base(base: &u32, value: &String) -> bool {
     for i in value.chars() {
-        match i.to_digit(*base) {
-            Some(x) => {
-                if x >= *base {
-                    return false;
-                }
-            }
-            None => {
+        if i.to_digit(*base).is_none() {
                 return false;
-            }
         }
     }
     true
