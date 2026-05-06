@@ -12,9 +12,7 @@ pub struct NumberWithBase {
 
 impl NumberWithBase {
     pub fn from(base: u8, value: String) -> Result<NumberWithBase, String> {
-        if !SUPPORTED_BASES.contains(&base) {
-            return Err("base provided is not supported".to_string());
-        }
+        check_if_base_allowed(&base)?;
         if !check_value_valid_for_base(&(base as u32), &value) {
             return Err("Invalid value for the given base".to_string());
         }
@@ -100,7 +98,7 @@ fn check_if_base_allowed(n: &u8) -> Result<(), String> {
 fn check_value_valid_for_base(base: &u32, value: &String) -> bool {
     for i in value.chars() {
         if i.to_digit(*base).is_none() {
-                return false;
+            return false;
         }
     }
     true
