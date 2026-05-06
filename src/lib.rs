@@ -112,3 +112,16 @@ fn check_value_valid_for_base(base: &u32, value: &String) -> bool {
     }
     true
 }
+
+fn get_base10_value(base: &u8, value: &String) -> u32 {
+    let mut out_sum: u32 = 0;
+
+    for (ind, chx) in value.chars().rev().enumerate() {
+        let digit: u32 = match chx.to_digit(*base as u32) {
+            Some(num) => {num},
+            None => {0_u32},
+        };
+        out_sum += digit * ((*base as u32).pow(ind as u32) );
+    }
+    out_sum
+}
