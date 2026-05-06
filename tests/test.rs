@@ -43,8 +43,9 @@ fn test_base10_data(test_case: (u8, &str, &str)) {
                     assert_eq!(expected, x);
                 }
                 Ok(numy) => {
-                    assert_eq!(numy.get_base(), out_base);
-                    assert_eq!(numy.get_value(), expected);
+                    let (outbase, outstr) = numy.get_base_and_value();
+                    assert_eq!(outbase, out_base);
+                    assert_eq!(outstr, expected);
                 }
             };
         }
