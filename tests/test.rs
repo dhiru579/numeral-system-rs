@@ -23,11 +23,12 @@ use numeral_system_rs::NumberWithBase;
         (15, "14", "E"),
         (16, "15", "F"),
         (16, "1008732", "F645C"),
-        (17, "16", "provided base is not supported"),
+        (17, "16", "G"),
+        (50, "10", "provided base is not supported"),
         (16, "abc", "Invalid value for the given base"),
         (2, "00_", "Invalid value for the given base"),
-        (2, "00A", "Invalid value for the given base"),
-        (2, "00a", "Invalid value for the given base"),
+        (4, "00A", "Invalid value for the given base"),
+        (7, "00a", "Invalid value for the given base"),
         (16, "G645C", "Invalid value for the given base"),
     }
 )]
@@ -60,8 +61,9 @@ fn test_base10_data(test_case: (u8, &str, &str)) {
         (10, "4567", 2, "1000111010111"),
         (12, "1B0", 8, "424"),
         (16, "1ff0", 13, "394C"),
-        (14, "1bc0", 14, "1bc0"),
-        (18, "1ff0", 13, "provided base is not supported"),
+        (14, "1bc0", 14, "1BC0"),
+        (32, "vb7c", 27, "1P55C"),
+        (38, "1ff0", 13, "provided base is not supported"),
     }
 )]
 fn test_conversion(test_case: (u8, &str, u8, &str)) {
