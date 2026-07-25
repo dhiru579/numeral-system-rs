@@ -44,10 +44,75 @@ impl ConvertionResult {
     }
 }
 
+trait OutputPrinter {
+    fn print_console_output(conversion_res: &ConvertionResult) {}
+}
+
+struct VerbosePrinter;
+
+impl OutputPrinter for VerbosePrinter {
+    fn print_console_output(conversion_res: &ConvertionResult) {
+        let status: String = (if conversion_res.get_status() {
+            "PASS"
+        } else {
+            "FAIL"
+        })
+        .to_string();
+        let (inp_base, inp_val) = conversion_res.get_inputs();
+        let (out_base, out_val) = conversion_res.get_outputs();
+
+        println!("status => {}", status);
+        if conversion_res.get_status() {
+            println!("input  => value = \"{}\"\tbase = \"{}\"", inp_base, inp_val);
+            println!("output => value = \"{}\"\tbase = \"{}\"", out_base, out_val);
+        } else {
+            println!("reason => {}", conversion_res.get_reason());
+        }
+    }
+}
+
+struct CsvPrinter;
+
+impl OutputPrinter for CsvPrinter {
+    fn print_console_output(conversion_res: &ConvertionResult) {
+        println!("NOTE: this OutputType is yet be implemented");
+        todo!();
+    }
+}
+
+struct JsonPrinter;
+
+impl OutputPrinter for JsonPrinter {
+    fn print_console_output(conversion_res: &ConvertionResult) {
+        println!("NOTE: this OutputType is yet be implemented");
+        todo!();
+    }
+}
+
+struct CleanPrinter;
+
+impl OutputPrinter for CleanPrinter {
+    fn print_console_output(conversion_res: &ConvertionResult) {
+        println!("NOTE: this OutputType is yet be implemented");
+        todo!();
+    }
+}
+
 #[derive(Debug, Clone, ValueEnum)]
 pub enum OutputType {
     Csv,
     Json,
     Verbose,
     Clean,
+}
+
+impl OutputType {
+    pub fn print_console_output(&self, conversion_res: &ConvertionResult) {
+        match self {
+            OutputType::Verbose => VerbosePrinter::print_console_output(conversion_res),
+            OutputType::Clean => CleanPrinter::print_console_output(conversion_res),
+            OutputType::Json => JsonPrinter::print_console_output(conversion_res),
+            OutputType::Csv => CsvPrinter::print_console_output(conversion_res),
+        };
+    }
 }

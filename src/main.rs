@@ -43,26 +43,6 @@ fn main() {
         }
     }
 
-    match data.output_type {
-        OutputType::Verbose => {
-            if conversion_res.get_status() {
-                println!("status => PASS");
-                println!(
-                    "input  => value = \"{}\"\tbase = \"{}\"",
-                    data.input_value, data.input_base
-                );
-                let (out_base, out_val) = conversion_res.get_outputs();
-                println!(
-                    "output => value = \"{}\"\tbase = \"{}\"", out_base, out_val
-                );
-            } else {
-                println!("status => FAIL");
-                println!("reason => {}", conversion_res.get_reason());
-            }
-        },
-        _ => {
-            println!("NOTE: this OutputType is yet be implemented");
-            todo!();
-        }
-    }
+    data.output_type.print_console_output(&conversion_res);
+
 }
