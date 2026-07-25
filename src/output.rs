@@ -95,9 +95,8 @@ impl OutputPrinter for JsonPrinter {
 struct CleanPrinter;
 
 impl OutputPrinter for CleanPrinter {
-    fn print_console_output(_conversion_res: &ConvertionResult) {
-        println!("NOTE: this OutputType is yet be implemented");
-        todo!();
+    fn print_console_output(conversion_res: &ConvertionResult) {
+        println!("{}", conversion_res.get_outputs().1);
     }
 }
 
