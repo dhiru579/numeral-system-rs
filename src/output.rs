@@ -31,8 +31,12 @@ impl ConvertionResult {
         self.status
     }
 
-    pub fn get_output(self: &ConvertionResult) -> (String, String) {
+    pub fn get_outputs(self: &ConvertionResult) -> (String, String) {
         (self.output.0.to_string(), self.output.1.clone())
+    }
+
+    pub fn get_inputs(self: &ConvertionResult) -> (String, String) {
+        (self.input.0.to_string(), self.input.1.clone())
     }
 
     pub fn get_reason(self: &ConvertionResult) -> String {

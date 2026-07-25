@@ -51,7 +51,7 @@ fn main() {
                     "input  => value = \"{}\"\tbase = \"{}\"",
                     data.input_value, data.input_base
                 );
-                let (out_base, out_val) = conversion_res.get_output();
+                let (out_base, out_val) = conversion_res.get_outputs();
                 println!(
                     "output => value = \"{}\"\tbase = \"{}\"", out_base, out_val
                 );
