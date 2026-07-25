@@ -69,15 +69,6 @@ impl OutputPrinter for VerbosePrinter {
     }
 }
 
-struct CsvPrinter;
-
-impl OutputPrinter for CsvPrinter {
-    fn print_console_output(_conversion_res: &ConvertionResult) {
-        println!("NOTE: this OutputType is yet be implemented");
-        todo!();
-    }
-}
-
 struct JsonPrinter;
 
 impl OutputPrinter for JsonPrinter {
@@ -112,7 +103,6 @@ impl OutputPrinter for CleanPrinter {
 
 #[derive(Debug, Clone, ValueEnum)]
 pub enum OutputType {
-    Csv,
     Json,
     Verbose,
     Clean,
@@ -124,7 +114,6 @@ impl OutputType {
             OutputType::Verbose => VerbosePrinter::print_console_output(conversion_res),
             OutputType::Clean => CleanPrinter::print_console_output(conversion_res),
             OutputType::Json => JsonPrinter::print_console_output(conversion_res),
-            OutputType::Csv => CsvPrinter::print_console_output(conversion_res),
         };
     }
 }
