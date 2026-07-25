@@ -31,6 +31,10 @@ impl ConvertionResult {
         self.status
     }
 
+    pub fn get_pass_or_fail(self: &ConvertionResult) -> String {
+        (if self.status { "PASS" } else { "FAIL" }).to_string()
+    }
+
     pub fn get_outputs(self: &ConvertionResult) -> (String, String) {
         (self.output.0.to_string(), self.output.1.clone())
     }
@@ -45,23 +49,17 @@ impl ConvertionResult {
 }
 
 trait OutputPrinter {
-    fn print_console_output(conversion_res: &ConvertionResult) {}
+    fn print_console_output(_conversion_res: &ConvertionResult) {}
 }
 
 struct VerbosePrinter;
 
 impl OutputPrinter for VerbosePrinter {
     fn print_console_output(conversion_res: &ConvertionResult) {
-        let status: String = (if conversion_res.get_status() {
-            "PASS"
-        } else {
-            "FAIL"
-        })
-        .to_string();
         let (inp_base, inp_val) = conversion_res.get_inputs();
         let (out_base, out_val) = conversion_res.get_outputs();
 
-        println!("status => {}", status);
+        println!("status => {}", conversion_res.get_pass_or_fail());
         if conversion_res.get_status() {
             println!("input  => value = \"{}\"\tbase = \"{}\"", inp_base, inp_val);
             println!("output => value = \"{}\"\tbase = \"{}\"", out_base, out_val);
@@ -74,7 +72,7 @@ impl OutputPrinter for VerbosePrinter {
 struct CsvPrinter;
 
 impl OutputPrinter for CsvPrinter {
-    fn print_console_output(conversion_res: &ConvertionResult) {
+    fn print_console_output(_conversion_res: &ConvertionResult) {
         println!("NOTE: this OutputType is yet be implemented");
         todo!();
     }
@@ -84,15 +82,29 @@ struct JsonPrinter;
 
 impl OutputPrinter for JsonPrinter {
     fn print_console_output(conversion_res: &ConvertionResult) {
-        println!("NOTE: this OutputType is yet be implemented");
-        todo!();
+        let (inp_base, inp_val) = conversion_res.get_inputs();
+        let (out_base, out_val) = conversion_res.get_outputs();
+
+        println!("{{");
+        println!("    \"status\": \"{}\",", conversion_res.get_pass_or_fail());
+        println!("    \"is_success\": {},", conversion_res.get_status());
+        println!("    \"reason\": \"{}\",", conversion_res.get_reason());
+        println!("    \"input\": {{");
+        println!("        \"base\": \"{}\",", inp_base);
+        println!("        \"value\": \"{}\"", inp_val);
+        println!("    }},");
+        println!("    \"output\": {{");
+        println!("        \"base\": \"{}\",", out_base);
+        println!("        \"value\": \"{}\"", out_val);
+        println!("    }}");
+        println!("}}");
     }
 }
 
 struct CleanPrinter;
 
 impl OutputPrinter for CleanPrinter {
-    fn print_console_output(conversion_res: &ConvertionResult) {
+    fn print_console_output(_conversion_res: &ConvertionResult) {
         println!("NOTE: this OutputType is yet be implemented");
         todo!();
     }
