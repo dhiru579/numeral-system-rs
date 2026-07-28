@@ -13,11 +13,11 @@ struct Args {
     input_value: String,
 
     /// convert to base
-    #[arg(short, default_value_t = 10_u8)]
+    #[arg(short='b', default_value_t = 10_u8)]
     output_base: u8,
     
     /// type of the output
-    #[arg(value_enum, default_value_t = OutputType::Verbose)]
+    #[arg(short='t',value_enum, default_value_t = OutputType::Verbose)]
     output_type: OutputType,
 }
 
