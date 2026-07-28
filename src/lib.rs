@@ -63,22 +63,74 @@ impl NumberWithBase {
         return Ok(NumberWithBase { base, value });
     }
 
+    /// create an instance of `NumberWithBase` with input value arguments.
+    /// (Input base is 10) 
+    /// 
+    /// # Examples
+    ///
+    /// ```
+    /// use numeral_system_rs::NumberWithBase;
+    /// 
+    /// let num0_res: Result<NumberWithBase, String> = NumberWithBase::from_base10(String::from("48"));
+    /// let mut num0: NumberWithBase = num0_res.unwrap();
+    /// 
+    /// assert_eq!(num0.get_base(), 10);
+    /// assert_eq!(num0.get_value(), "48");
+    /// ```
+    ///
     pub fn from_base10(value: String) -> Result<NumberWithBase, String> {
         NumberWithBase::from(10, value)
     }
 
+    /// fetches the base of the Number
+    /// 
+    /// # Examples
+    ///
+    /// ```
+    /// use numeral_system_rs::NumberWithBase;
+    /// 
+    /// let num0_res: Result<NumberWithBase, String> = NumberWithBase::from(24, String::from("8J8"));
+    /// 
+    /// assert_eq!(num0_res.unwrap().get_base(), 24);
+    /// ```
+    ///
     pub fn get_base(self: &NumberWithBase) -> u8 {
         self.base
     }
 
+    /// fetches the value of the Number
+    /// 
+    /// # Examples
+    ///
+    /// ```
+    /// use numeral_system_rs::NumberWithBase;
+    /// 
+    /// let num0_res: Result<NumberWithBase, String> = NumberWithBase::from(24, String::from("8J8"));
+    /// 
+    /// assert_eq!(num0_res.unwrap().get_base(), 24);
+    /// ```
+    ///
     pub fn get_value(self: &NumberWithBase) -> String {
         self.value.clone()
     }
 
+    /// fetches the base & value of the Number
+    /// 
+    /// # Examples
+    ///
+    /// ```
+    /// use numeral_system_rs::NumberWithBase;
+    /// 
+    /// let num0_res: Result<NumberWithBase, String> = NumberWithBase::from(18, String::from("8A8"));
+    /// 
+    /// assert_eq!(num0_res.unwrap().get_base_and_value(), (18_u8, String::from("8A8")));
+    /// ```
+    ///
     pub fn get_base_and_value(self: &NumberWithBase) -> (u8, String) {
         (self.get_base(), self.get_value())
     }
 
+    /// fetches the base & value of the Number after conversion
     fn get_base_and_value_post_base_update(
         base: u8,
         inp_base: &u8,
@@ -111,6 +163,22 @@ impl NumberWithBase {
         return Ok((base, out_str));
     }
 
+    /// mutates the current instance by conveting to output base provided.
+    /// 
+    /// # Examples
+    ///
+    /// ```
+    /// use numeral_system_rs::NumberWithBase;
+    /// 
+    /// let num0_res: Result<NumberWithBase, String> = NumberWithBase::from(18, String::from("8HHFA8"));
+    /// let mut num0: NumberWithBase = num0_res.unwrap();
+    /// 
+    /// num0.mutate_to_base_n(31);
+    /// 
+    /// assert_eq!(num0.get_base(), 31);
+    /// assert_eq!(num0.get_value(), "ICPDU");
+    /// ```
+    ///
     pub fn mutate_to_base_n(self: &mut NumberWithBase, base: u8) -> Result<(), String> {
         let (base, out_str) = Self::get_base_and_value_post_base_update(base, &self.base, &self.value)?;
 
@@ -119,6 +187,24 @@ impl NumberWithBase {
         Ok(())
     }
 
+    /// new instance of the number by converting to output base provided.
+    /// 
+    /// # Examples
+    ///
+    /// ```
+    /// use numeral_system_rs::NumberWithBase;
+    /// 
+    /// let num0_res: Result<NumberWithBase, String> = NumberWithBase::from(4, String::from("12321"));
+    /// 
+    /// let num0: NumberWithBase = num0_res.unwrap();
+    /// let num1: NumberWithBase = num0.convert_to_base_n(27).unwrap();
+    /// 
+    /// assert_eq!(num0.get_base(), 4);
+    /// assert_eq!(num0.get_value(), "12321");
+    /// assert_eq!(num1.get_base(), 27);
+    /// assert_eq!(num1.get_value(), "G9");
+    /// ```
+    ///
     pub fn convert_to_base_n(self: &NumberWithBase, base: u8) -> Result<NumberWithBase, String> {
         let (base, out_str) = Self::get_base_and_value_post_base_update(base, &self.base, &self.value)?;
 
