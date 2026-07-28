@@ -215,14 +215,44 @@ impl NumberWithBase {
     }
 }
 
-fn check_if_base_allowed(n: &u8) -> Result<(), String> {
+/// Check if the base is allowed/valid or not
+/// 
+/// Minimum Base is 2.
+/// Maximum Base is 32.
+/// 
+/// # Examples
+///
+/// ```
+/// use numeral_system_rs::check_if_base_allowed;
+/// 
+/// assert_eq!(check_if_base_allowed(&2).is_ok(), true);
+/// assert_eq!(check_if_base_allowed(&32).is_ok(), true);
+/// assert_eq!(check_if_base_allowed(&33).is_ok(), false);
+/// assert_eq!(check_if_base_allowed(&33).unwrap_err(), "provided base is not supported");
+/// ```
+///
+pub fn check_if_base_allowed(n: &u8) -> Result<(), String> {
     if *n < SUPPORTED_BASE_MIN || *n > SUPPORTED_BASE_MAX {
         return Err("provided base is not supported".to_string());
     };
     Ok(())
 }
 
-fn check_value_valid_for_base(base: &u32, value: &String) -> bool {
+/// Checks Whether the value is supported by the base
+/// 
+/// # Examples
+///
+/// ```
+/// use numeral_system_rs::check_value_valid_for_base;
+/// 
+/// let a_base: u32 = 2;
+/// let a_value_1: String = String::from("1001");
+/// let a_value_2: String = String::from("1221");
+/// assert_eq!(check_value_valid_for_base(&a_base, &a_value_1), true);
+/// assert_eq!(check_value_valid_for_base(&a_base, &a_value_2), false);
+/// ```
+///
+pub fn check_value_valid_for_base(base: &u32, value: &String) -> bool {
     for i in value.chars() {
         if i.to_digit(*base).is_none() {
             return false;
