@@ -3,9 +3,36 @@ use std::char::from_digit;
 const SUPPORTED_BASE_MIN: u8 = 2;
 const SUPPORTED_BASE_MAX: u8 = 32;
 
+/// A number with base. (Supported Bases from 2 to 32)
+/// 
+/// `NumberWithBase` helps in converting numbers to different bases.
+/// 
+/// # Examples
+///
+/// You can create an Instance with [`NumberWithBase::from`] or [`NumberWithBase::from_base10`]:
+///
+/// ```
+/// use numeral_system_rs::NumberWithBase;
+/// 
+/// let num0_res: Result<NumberWithBase, String> = NumberWithBase::from(10, String::from("128"));
+/// let mut num0: NumberWithBase = num0_res.unwrap();
+/// 
+/// assert_eq!(num0.get_base(), 10);
+/// assert_eq!(num0.get_value(), "128");
+/// 
+/// // mutate to base 12
+/// num0.mutate_to_base_n(12);
+/// 
+/// assert_eq!(num0.get_base(), 12);
+/// assert_eq!(num0.get_value(), "A8");
+/// 
+/// ```
+///
 #[derive(Debug)]
 pub struct NumberWithBase {
+    /// Base of the Number
     base: u8,
+    /// Value of the Number
     value: String,
 }
 
