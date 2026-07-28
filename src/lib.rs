@@ -3,7 +3,7 @@ use std::char::from_digit;
 const SUPPORTED_BASE_MIN: u8 = 2;
 const SUPPORTED_BASE_MAX: u8 = 32;
 
-/// A number with base. (Supported Bases from 2 to 32)
+/// A number with base. (Supports Bases from 2 to 32)
 /// 
 /// `NumberWithBase` helps in converting numbers to different bases.
 /// 
@@ -14,6 +14,8 @@ const SUPPORTED_BASE_MAX: u8 = 32;
 /// ```
 /// use numeral_system_rs::NumberWithBase;
 /// 
+/// // input base  -> 10
+/// // input value -> 128
 /// let num0_res: Result<NumberWithBase, String> = NumberWithBase::from(10, String::from("128"));
 /// let mut num0: NumberWithBase = num0_res.unwrap();
 /// 
@@ -37,6 +39,22 @@ pub struct NumberWithBase {
 }
 
 impl NumberWithBase {
+    /// create an instance of `NumberWithBase` with input base & value arguments.
+    /// 
+    /// # Examples
+    ///
+    /// ```
+    /// use numeral_system_rs::NumberWithBase;
+    /// 
+    /// // input base  -> 24
+    /// // input value -> 8J8
+    /// let num0_res: Result<NumberWithBase, String> = NumberWithBase::from(24, String::from("8J8"));
+    /// let mut num0: NumberWithBase = num0_res.unwrap();
+    /// 
+    /// assert_eq!(num0.get_base(), 24);
+    /// assert_eq!(num0.get_value(), "8J8");
+    /// ```
+    ///
     pub fn from(base: u8, value: String) -> Result<NumberWithBase, String> {
         check_if_base_allowed(&base)?;
         if !check_value_valid_for_base(&(base as u32), &value) {
