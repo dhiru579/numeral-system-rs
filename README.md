@@ -29,11 +29,31 @@ output => base = "12"  value = "53"
 cli @ host $   
 ```
 
-#### With Output Format
+#### With Clean Format Response
 
 ```bash
 cli @ host $ numeral-system-rs 8 77 -b 24 -t clean
 2F
+cli @ host $  
+```
+
+#### With JSON Format Response
+
+```bash
+cli @ host $ numeral-system-rs 17 8989 -b 30 -t json
+{
+    "status": "PASS",
+    "is_success": true,
+    "reason": "-",
+    "input": {
+        "base": "17",
+        "value": "8989"
+    },
+    "output": {
+        "base": "30",
+        "value": "1GLK"
+    }
+}
 cli @ host $  
 ```
 
