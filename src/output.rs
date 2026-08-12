@@ -61,8 +61,8 @@ impl OutputPrinter for VerbosePrinter {
 
         println!("status => {}", conversion_res.get_pass_or_fail());
         if conversion_res.get_status() {
-            println!("input  => value = \"{}\"\tbase = \"{}\"", inp_base, inp_val);
-            println!("output => value = \"{}\"\tbase = \"{}\"", out_base, out_val);
+            println!("input  => base = \"{}\"\tvalue = \"{}\"", inp_base, inp_val);
+            println!("output => base = \"{}\"\tvalue = \"{}\"", out_base, out_val);
         } else {
             println!("reason => {}", conversion_res.get_reason());
         }

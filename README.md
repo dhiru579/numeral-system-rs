@@ -14,8 +14,8 @@ supports from base-2(binary) upto base-32.
 ```bash
 cli @ host $ numeral-system-rs 8 77
 status => PASS
-input  => value = "8"   base = "77"
-output => value = "10"  base = "63"
+input  => base = "8"   value = "77"
+output => base = "10"  value = "63"
 cli @ host $  
 ```
 
@@ -24,8 +24,8 @@ cli @ host $
 ```bash
 cli @ host $ numeral-system-rs 8 77 -b 12
 status => PASS
-input  => value = "8"   base = "77"
-output => value = "12"  base = "53"
+input  => base = "8"   value = "77"
+output => base = "12"  value = "53"
 cli @ host $   
 ```
 
